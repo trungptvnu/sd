@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -10,12 +11,36 @@ int main()
 	string a;
 	cout << " Moi nhap 1 chuoi bat ki " << endl;
 	cin >> a;
-	cout << a;
+	cout << "chuoi vua nhap la " << a << endl;
 	string line;
-	cout << " Moi ghi du lieu vao file "<< endl;
+	cout << " Moi ban nhap string de ghi vao file " << endl;
+	cin>>line;
+	if( line == " ")
+	{
+		cout << " error" << endl;
+	}
+	// ghi file
 	ofstream file;
 	file.open("danhsachsinhvien.txt",ios_base::app);
 	file << line;
 	file.close();
+	// doc file
+	ifstream myfile("danhsachsinhvien.txt");
+	if( myfile.is_open())
+	{
+		while( !myfile.eof())
+		{
+			string line;
+			getline(myfile,line);
+			cout <<line <<endl;
+		}
+	}
+	else
+	{
+		cout << " error ! cannot open file";	
+	}
+	 
+	myfile.close();
+	cin.get();
 	return 0;
-} 
+}
