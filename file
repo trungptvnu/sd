@@ -1,0 +1,21 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+
+int main()
+{
+	string a;
+	cout << " Moi nhap 1 chuoi bat ki " << endl;
+	cin >> a;
+	cout << a;
+	string line;
+	cout << " Moi ghi du lieu vao file "<< endl;
+	ofstream file;
+	file.open("danhsachsinhvien.txt",ios_base::app);
+	file << line;
+	file.close();
+	return 0;
+} 
