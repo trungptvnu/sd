@@ -1,2 +1,180 @@
--	Implement base class, derived class for shape, triangle, right triangle, rectangle and square with methods to calculate area and perimeter.
--	Create a class of shape manager which is a container to store these shapes. This class has a method for user to add shapes and print all of their area and perimeter.
+#include <iostream>
+#include <string>
+#include <math.h>
+#include <cmath>
+#include <list>
+
+using namespace std;
+
+class Shape
+{
+	
+	public:
+		Shape()
+		{
+			
+		}
+		~Shape()
+		{
+			
+		}
+		virtual const float getArea() = 0;
+		virtual const float getPerimeter() =0;
+		virtual char* type() = 0;
+		virtual void printAttributes()
+		{
+			
+			cout << "Area" << getArea()<<"Perimter" << getPerimeter() <<endl;
+		}
+};
+
+class Triangle:public Shape
+{
+	protected:
+		float m_edge1;
+		float m_edge2;
+		 float m_edge3;
+	public:
+		virtual Triagle(float edge1 = 0, float edge2 = 0, float edge3 = 0)
+		{
+			m_edge1 = edge1, m_edge2 = edge2, m_edge3 = edge3 ;
+		}
+		virtual ~Triangle();
+		virtual char* type()
+		{
+			return "Triangle";
+		}
+		virtual const float getPerimeter()
+		{
+			return m_edge1+m_edge2+m_edge3;
+		}
+		virtual const float getArea()
+		{
+			float s;
+			float p=(m_edge1+m_edge2+m_edge3)/2;
+			if((m_edge1+m_edge2 > m_edge3) || (m_edge1+m_edge3 > m_edge2)|| (m_edge1+m_edge3 > m_edge1))
+			{
+				s = sqrt(p*(p - m_edge1)*(p - m_edge2)*(p - m_edge3));
+				//double x = 1.3;
+				//sqrt(x);
+				cout << "dien tich tam giac la" << endl;
+				return s;
+			}
+			else
+			{
+				cout << "ban nhap sai canh" <<endl;
+				return 0;
+			}
+		}
+
+};
+
+class RightTriangle:public Triangle
+{
+	
+	public :
+		
+		virtual char* type()
+		{
+			return "RightTriangle";
+		}
+		virtual const float getArea()
+		{
+			if((m_edge1 + m_edge2 > m_edge3) || (m_edge1 + m_edge3 > m_edge2)|| (m_edge1 + m_edge3 > m_edge1))
+			{
+			// nguoi dung nhap dung canh 1, canh 2 la 2 canh goc vuong
+				return (m_edge1 * m_edge2)/2;	
+			}
+			else
+			{
+				cout << " ban nhap sai canh " <<endl;
+				return 0;
+			}
+		}
+			
+	
+
+};
+
+class Rectangle:public Shape
+{
+	protected:
+		float m_length;
+	    float m_width;
+	public:
+		Rectangle(float width = 0, float length = 0)
+		{
+			m_width = width, m_length = length;
+		}
+		~Rectangle();
+		virtual char* type()
+		{
+			return "Rectangle";
+		}
+		virtual const float getArea()
+		{
+			return m_length * m_width;
+		}
+		virtual const float getPerimeter()
+		{
+			return (m_length + m_width) * 2;
+		}
+			
+};
+
+class Square:public Rectangle
+{
+	protected:
+		float m_edge;
+	public:
+		Square(float edge = 0)
+		{
+			m_edge = edge;
+		}
+		~Square();
+		virtual char* type()
+		{
+			return "Square";
+		}
+		virtual const float getArea()
+		{
+			return m_edge*m_edge;
+		}
+		virtual const float gePerimeter()
+		{
+			return m_edge*4;
+		}
+};
+
+class Manager {
+        list<Shape*> m_list;
+    public:
+        Manager()
+		{
+			
+        }
+        ~Manager()
+        {
+        	
+		}
+        void add(Shape* s) {
+            m_list.push_back(s);
+        }
+        void showall()
+		{
+            for (list<Shape*>::iterator i=m_list.begin();i!=m_list.end();++i)
+			{
+                Shape * s = *i;
+                cout << s->type() << endl;
+                s->printAttributes();
+            }
+        }
+        const list<Shape*>& getall() const {
+            return m_list;
+        }
+};
+
+int main()
+{
+	return 0;
+}
