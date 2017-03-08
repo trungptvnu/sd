@@ -1,0 +1,2 @@
+-	Implement base class, derived class for shape, triangle, right triangle, rectangle and square with methods to calculate area and perimeter.
+-	Create a class of shape manager which is a container to store these shapes. This class has a method for user to add shapes and print all of their area and perimeter.
