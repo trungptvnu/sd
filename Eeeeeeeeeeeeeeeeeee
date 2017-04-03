@@ -1,77 +1,43 @@
-#include "audiocontroller.h"
+
+#include <QQmlApplicationEngine>
+#include <QGuiApplication>
+#include <QWindow>
+#include <QQmlContext>
+#include <QStandardPaths>
+#include <QDir>
 #include <QDebug>
-#include <QString>
+#include <QQuickItem>
+#include <QObject>
+#include <QQmlContext>
+#include <QQuickView>
+
+#include "audiocontroller.h"
+#include "receiver.h"
 
 
-
-AudioController::AudioController()
+int main(int argc, char *argv[])
 {
+    QGuiApplication app(argc, argv);
 
-}
+    // SetContextProperty AudioController
+    QQuickView view;
+    AudioController audioControllerdata;
+    view.rootContext()->setContextProperty("audioController", &audioControllerdata);
+    view.setSource (QUrl("qrc:/audio.qml"));
+  //  view.show();
 
-AudioController::~AudioController()
-{
+    //Set ContextProperty Receiver
+    QQuickView view2;
+    Receiver receiverdata;
+    view2.rootContext()->setContextProperty("receiver",&receiverdata);
+    view2.setSource(QUrl("qrc:/audio.qml"));
+    receiverdata.playState();
 
-}
 
-void AudioController::play()
-{
-    qDebug() <<"play";
 
-}
 
-void AudioController::openFile()
-{
+    QQmlApplicationEngine engine;
+    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
-}
-
-void AudioController::playFile()
-{
-
-}
-
-void AudioController::seekForward()
-{
-
-}
-
-void AudioController::seekBackward()
-{
-
-}
-
-void AudioController::previous()
-{
-
-}
-
-void AudioController::next()
-{
-
-}
-
-int AudioController::maxVolum()
-{
-    return 0;
-
-}
-
-void AudioController::seekVolum()
-{
-
-}
-
-void AudioController::addFile()
-{
-
-}
-
-void AudioController::clearFile()
-{
-
-}
-
-void AudioController::removeFile()
-{
-
+    return app.exec();
 }
